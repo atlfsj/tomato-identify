@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import HelloWorld from '../views/HelloWorld.vue'
 import Service from '../views/Service.vue'
 import Course from '../views/Course.vue'
@@ -20,7 +20,7 @@ const routes = [
     {
         path: '/course',
         name: 'Course',
-        component: Service
+        component: Course
     },
     {
         path: '/user',
@@ -36,8 +36,13 @@ const routes = [
 ]
 
 const router = createRouter({
+    history: createWebHashHistory(),
+    routes,
+})
+/* 用hash而不是history，否则Github Pages会报404
+const router = createRouter({
     history: createWebHistory(),
     routes
-})
+}) */
 
 export default router
