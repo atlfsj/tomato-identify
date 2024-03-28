@@ -1,9 +1,11 @@
 <template>
     <el-col :span="8">
-        <svg class="icon" aria-hidden="true" :style="{ width: iconSize, height: iconSize }">
-            <use :xlink:href="'#icon-' + iconName"></use>
-        </svg>
-        <div class="text" v-html="formattedText"></div>
+        <router-link :to="'/' + footbarName">
+            <svg class="icon" aria-hidden="true" :style="{ width: iconSize, height: iconSize }">
+                <use :xlink:href="'#icon-' + iconName"></use>
+            </svg>
+            <div class="text" v-html="formattedText"></div>
+        </router-link>
     </el-col>
 </template>
 
@@ -11,6 +13,7 @@
 import { computed } from 'vue';
 export default {
     props: {
+        footbarName: String,
         iconName: String,
         text: String,
         iconSize: {

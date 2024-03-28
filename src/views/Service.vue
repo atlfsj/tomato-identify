@@ -1,19 +1,16 @@
 <template>
     <Layout>
         <template v-slot:navbar>
-            navbar
-            <div class="identify">
-                <button>
-                    <router-link to="/identify">开始识别</router-link>
-                </button>
+            <div class="navbar">
+                <img class="navbarImage" src="../assets/icons/nav.svg" alt="">
             </div>
         </template>
+
         <template v-slot:content1>
             <div class="content1">
                 <div class="icons1">
                     <el-row :gutter="20">
-
-                        <Icons1 iconName="bingchonghai" text="病虫害<br>识别" />
+                        <Icons1 module="identify" iconName="bingchonghai" text="病虫害<br>识别" />
                         <Icons1 iconName="cechan" text="拍照<br>树果测产" />
                         <Icons1 iconName="huaqi" text="拍照<br>判断花期" />
                         <Icons1 iconName="shaoqi" text="拍照<br>判断梢期" />
@@ -32,33 +29,19 @@
 
         <template v-slot:content2>
             <div class="content2">
-                <div class="title">
-                    技术热点
-                </div>
-                <div class="more">
-                    更多文章
-                    <svg class="icon-tiaozhuan" aria-hidden="true">
-                        <use xlink:href="#icon-tiaozhuan"></use>
-                    </svg>
-                </div>
-                <div class="news">
-                    <div class="gaiyao">
-                        行情不好，是的保护伞的错误v根据以往v给我说不出
-
-                        <img class="news-img" src="../assets/icons/nav.svg" alt="Description of the image">
-                    </div>
-                </div>
+                <MsgLevel1 />
+                <MsgLevel2 />
             </div>
         </template>
 
     </Layout>
-
-
 </template>
 
 <script>
 import Layout from '../components/Layout.vue'
 import Icons1 from '../components/Icons1.vue'
+import MsgLevel1 from '../components/MsgLevel1.vue'
+import MsgLevel2 from '../components/MsgLevel2.vue'
 
 import { ref } from 'vue'
 
@@ -66,15 +49,23 @@ export default {
     components: {
         Layout,
         Icons1,
+        MsgLevel1,
+        MsgLevel2
     },
     setup() {
-        const iconSize = ref("15px");
-        return { iconSize };
+        /*const iconSize = ref("15px");
+        return { iconSize };*/
+
     }
 }
 </script>
 
 <style scoped>
+.navbarImage {
+    width: 100%;
+    max-height: 150px
+}
+
 .content1 {
     display: flex;
     flex-direction: row;
@@ -84,17 +75,15 @@ export default {
     margin: 20px;
     border-radius: 8px;
     background: #ffffff;
-
 }
 
 .content2 {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
     margin: 20px;
     border-radius: 8px;
     background: #ffffff;
+
 
 }
 
@@ -112,32 +101,5 @@ export default {
 
 .el-row:last-child {
     margin-bottom: 10px;
-}
-
-.grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* 垂直居中 */
-    justify-content: center;
-    /* 水平居中 */
-}
-
-.icon-tiaozhuan {
-    width: 30px;
-    height: 30px;
-}
-
-.news {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.news-img {
-    width: 150px;
-    height: 100px;
-    justify-content: flex-end;
 }
 </style>

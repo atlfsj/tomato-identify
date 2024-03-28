@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
-import HelloWorld from '../views/HelloWorld.vue'
+// import HelloWorld from '../views/HelloWorld.vue'
 import Service from '../views/Service.vue'
 import Course from '../views/Course.vue'
 import User from '../views/User.vue'
@@ -9,8 +9,7 @@ import Identify from '../components/Identify.vue'
 const routes = [
     {
         path: '/',
-        name: 'HelloWorld',
-        component: HelloWorld
+        redirect: '/service'
     },
     {
         path: '/service',

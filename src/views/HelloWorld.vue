@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .welcome {
   display: flex;
   /* 背景铺满 */
