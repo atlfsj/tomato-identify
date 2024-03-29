@@ -16,7 +16,7 @@
 
         <template v-slot:content2>
             <div class="content2">
-                <MsgLevel1 />
+                <MsgLevel1 title="热门文章" more="更多" />
                 <div class="articleSelect">
                     <div class="select">
                         <MsgLevel2 />
@@ -30,9 +30,23 @@
                     <div class="select">
                         <MsgLevel2 />
                     </div>
+
+                </div>
+                <MsgLevel1 title="专家课堂" more="更多" />
+                <div class="articleSelect">
                     <div class="select">
                         <MsgLevel2 />
                     </div>
+                    <div class="select">
+                        <MsgLevel2 />
+                    </div>
+                    <div class="select">
+                        <MsgLevel2 />
+                    </div>
+                    <div class="select">
+                        <MsgLevel2 />
+                    </div>
+
                 </div>
             </div>
         </template>
@@ -47,6 +61,7 @@ import MsgLevel2 from '../components/MsgLevel2.vue';
 export default {
     components: {
         Layout,
+        MsgLevel1,
         MsgLevel2
     }
 }

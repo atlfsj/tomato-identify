@@ -29,7 +29,7 @@
 
         <template v-slot:content2>
             <div class="content2">
-                <MsgLevel1 />
+                <MsgLevel1 title="技术热点" more="更多文章" />
                 <MsgLevel2 />
             </div>
         </template>

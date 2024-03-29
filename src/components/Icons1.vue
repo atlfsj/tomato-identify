@@ -42,6 +42,5 @@ export default {
     margin-top: 10px;
     /* 调整文字和图标之间的间距 */
     text-align: center;
-
 }
 </style>

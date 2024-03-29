@@ -3,8 +3,10 @@ import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router
 import Service from '../views/Service.vue'
 import Course from '../views/Course.vue'
 import User from '../views/User.vue'
+import Article from '../views/Article.vue'
+import ArticleDetail from '../views/ArticleDetail.vue'
 import Identify from '../components/Identify.vue'
-
+import Login from '../components/Login.vue'
 
 const routes = [
     {
@@ -31,6 +33,21 @@ const routes = [
         name: 'Identify',
         component: Identify
     },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
+    },
+    {
+        path: '/article',
+        name: 'Article',
+        component: Article
+    },
+    {
+        path: '/articleDetail',
+        name: 'ArticleDetail',
+        component: ArticleDetail
+    }
 
 ]
 

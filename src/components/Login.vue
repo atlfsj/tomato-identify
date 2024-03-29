@@ -62,7 +62,7 @@ export default {
     max-width: 400px;
     width: 100%;
     padding: 20px;
-    background-color: #3774ca;
+    background-color: #20a42b;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -95,7 +95,7 @@ button {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #20364d;
+    background-color: #007a49;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -104,7 +104,7 @@ button {
 
 .switch-mode {
     text-align: center;
-    color: #007bff;
+    color: #f10a0e;
     cursor: pointer;
 }
 </style>

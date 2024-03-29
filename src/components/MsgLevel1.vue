@@ -1,19 +1,27 @@
 <template>
     <div class="level1">
-        <div class="title">
-            <h3>技术热点</h3>
+        <div class="title" :title="title">
+            <h3>{{ title }}</h3>
         </div>
-        <div class="more">更多文章
-            <svg class="icon-tiaozhuan" aria-hidden="true">
-                <use xlink:href="#icon-tiaozhuan"></use>
-            </svg>
-        </div>
+        <router-link to="/article">
+            <div class="more" :more="more">{{ more }}
+                <svg class="icon-tiaozhuan" aria-hidden="true">
+                    <use xlink:href="#icon-tiaozhuan"></use>
+                </svg>
+            </div>
+        </router-link>
     </div>
 </template>
 
 <script>
 export default {
+    props: {
+        title: String,
+        more: String
+    },
+    setup(props) {
 
+    }
 }
 </script>
 

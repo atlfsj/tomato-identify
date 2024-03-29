@@ -1,13 +1,14 @@
 <template>
-    <div class="level2">
-        <div class="news">
-            <div class="article">行情不好，是的保我让飞机饿哦我护伞的错误v根据以往v给我说不出</div>
-            <div class="articleImgs">
-                <img class="news-img" src="../assets/icons/nav.svg" alt="Description of the image">
+    <router-link to="/articleDetail">
+        <div class="level2">
+            <div class="news">
+                <div class="article">行情不好，是的保我让飞机饿哦我护伞据以不出</div>
+                <div class="articleImgs">
+                    <img class="news-img" src="../assets/icons/nav.svg" alt="Description of the image">
+                </div>
             </div>
-
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
