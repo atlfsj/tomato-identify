@@ -1,10 +1,7 @@
 <template>
     <div>
-        <button><label for="cameraInput">拍照上传</label></button>
-        <input id="cameraInput" type="file" accept="image/*" capture="camera" style="display: none;"
-            @change="handleFileInputChange">
-        <img :src="imageUrl" v-if="imageUrl" style="width: 100%; max-height: 300px;">
         <div class="show">
+            <img :src="imageUrl" v-if="imageUrl" style="width: 100%; max-height: 300px;">
             <!-- 展示上传结果 -->
             <div v-if="uploadResult" class="result">
                 <p>种类: {{ uploadResult.class }}</p>
@@ -25,18 +22,28 @@ import axios from 'axios';
 import { ref } from 'vue'
 
 export default {
-    setup() {
-        const imageUrl = ref('');       // 用于存储图片地址
-        const uploadResult = ref(null)    // 用于获取返回结果
+    props: {
+        imageUrl: {
+            type: String,   // 用于存储图片地址
+        },
+        uploadResult: {
+            type: Object,   // 用于获取返回结果
+        },
+    },
+    setup(props, context) {
+        const imageUrl = ref(props.imageUrl);
+        const uploadResult = ref(props.uploadResult);
         const handleFileInputChange = (event) => {
             const file = event.target.files[0];
             const reader = new FileReader();
             reader.onload = () => {
-                imageUrl.value = reader.result;
+                context.emit('updateImageUrl', reader.result);
+                //props.imageUrl = reader.result;
                 console.log('图片地址:', imageUrl.value);
                 // 将 imageUrl 发送到服务器或进行其他操作
             };
             reader.readAsDataURL(file);
+            console.log('预览图片:', imageUrl.value);
 
             // 上传操作：创建 FormData 对象, 并将图片文件添加到以后端预期的字段名 “file” 中
             const formData = new FormData();
@@ -55,11 +62,12 @@ export default {
                         // 如果请求未成功，则打印错误信息
                         console.error('上传图片失败');
                         alert('上传图片失败');
-                        uploadResult.value = null;
+                        props.uploadResult = null;
                     }
                 })
                 .then((result) => {
-                    uploadResult.value = result;
+                    context.emit('updateUploadResult', result);
+                    //props.uploadResult.value = result;
                     console.log('后端响应:', result); // 打印后端响应
                 })
                 .catch((error) => {
@@ -73,5 +81,5 @@ export default {
             handleFileInputChange,
         };
     },
-};
+}
 </script>

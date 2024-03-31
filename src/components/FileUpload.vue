@@ -1,7 +1,7 @@
 <template>
     <div>
-        <button><label for="cameraInput">拍照上传</label></button>
-        <input id="cameraInput" type="file" accept="image/*" capture="camera" style="display: none;"
+        <button><label for="fileInput">选择图片</label></button>
+        <input id="fileInput" type="file" accept="image/*" capture="environment" style="display: none;"
             @change="handleFileInputChange">
         <img :src="imageUrl" v-if="imageUrl" style="width: 100%; max-height: 300px;">
         <div class="show">
