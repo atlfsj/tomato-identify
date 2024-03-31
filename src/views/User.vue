@@ -20,6 +20,12 @@
                             <Icons1 iconName="wenda" text="专家问答" :iconSize="iconSize" />
                             <Icons1 iconName="chengjiu" text="识别成就" :iconSize="iconSize" />
                             <Icons1 iconName="shoucangjia" text="收藏夹" :iconSize="iconSize" />
+                            <!-- 占位用，解决el-row组件不满5个icons影响css的问题 -->
+                            <el-col class="false" :span="6">
+                                <svg class="icon" aria-hidden="true" :style="{ width: iconSize, height: iconSize }">
+                                    <use xlink:href=""></use>
+                                </svg>
+                            </el-col>
                         </el-row>
                     </div>
                 </div>
@@ -112,8 +118,9 @@ export default {
     border-radius: 8px;
     background: #ffffff;
 
-    .wdfw {
-        margin-left: -15px;
+    .false {
+        height: 0;
+
     }
 }
 
@@ -135,7 +142,6 @@ export default {
     display: flex;
     text-align: center;
     margin: 10px;
-
 }
 
 .el-row:last-child {

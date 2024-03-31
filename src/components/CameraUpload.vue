@@ -6,9 +6,14 @@
             <!-- 展示上传结果 -->
             <div v-if="uploadResult" class="result">
                 <p>种类: {{ uploadResult.class }}</p>
-                <p>概率: {{ uploadResult.probability }}</p>
+                <br>
+                <p>可信度: {{ uploadResult.probability }}</p>
+                <br>
                 <p>治疗方法：{{ uploadResult.zhiliao }}</p>
             </div>
+        </div>
+        <div v-if="uploadResult" class="ai">
+            <button>点击询问ai语音专家建议</button>
         </div>
     </div>
 </template>

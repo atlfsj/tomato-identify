@@ -1,20 +1,23 @@
 <template>
     <div>
-        <button @click="capturePhoto">拍照上传</button>
+        <!-- <button @click="capturePhoto">拍照上传</button>
         <button @click="selectFile">选择文件上传</button>
-        <!-- 使用 CameraUpload 组件 -->
-        <CameraUpload v-if="showCamera || showFileInput" @imageCaptured="handleImageCaptured"
-            @fileSelected="handleFileSelected" />
+        <!-- 使用 CameraUpload 组件 
+        <CameraUpload v-if="showCamera" />
+        <FileUpload v-if="showFileInput" /> -->
+        <Camera />
     </div>
 </template>
 
 <script>
+import Camera from '../components/Camera.vue';
 import CameraUpload from '../components/CameraUpload.vue';
 import { ref } from 'vue';
 
 export default {
     components: {
-        CameraUpload
+        CameraUpload,
+        Camera
     },
     setup() {
         const showCamera = ref(false);
@@ -23,7 +26,6 @@ export default {
         const capturePhoto = () => {
             // 点击按钮后显示相机拍照组件
             showCamera.value = true;
-            showFileInput.value = false;
         };
 
         const selectFile = () => {
