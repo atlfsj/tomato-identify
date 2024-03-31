@@ -13,6 +13,7 @@
     "element-plus": "2.6.2",
     "vant": "4.8.7",
     "vue": "^3.4.21",
+    "vue-image-crop-upload": "3.0.3",
     "vue-router": "4.3.0"
   },
   "devDependencies": {
