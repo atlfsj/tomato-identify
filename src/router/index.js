@@ -6,6 +6,7 @@ import User from '../views/User.vue'
 import Article from '../views/Article.vue'
 import ArticleDetail from '../views/ArticleDetail.vue'
 import Identify from '../components/Identify.vue'
+import ResultShow from '../components/ResultShow.vue'
 import Login from '../components/Login.vue'
 
 const routes = [
@@ -32,6 +33,11 @@ const routes = [
         path: '/identify',
         name: 'Identify',
         component: Identify
+    },
+    {
+        path: '/resultShow',
+        name: 'ResultShow',
+        component: ResultShow
     },
     {
         path: '/login',

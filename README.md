@@ -13,6 +13,7 @@ router@4
 less@4
 element-plus@2
 vant@4
+pinia@2
 ```
 
 ### 防丢记录

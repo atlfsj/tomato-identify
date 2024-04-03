@@ -2,9 +2,9 @@
     <Layout>
         <template v-slot:navbar>
             <div class="navbar">
-                <img class="navbarImage" src="../assets/icons/nav.svg" alt="">
+                <img class="navbarImage" src="../assets/icons/service-bg.svg" alt="">
 
-                <input value="搜索文章"></input>
+                <input class="search" value="搜索文章"></input>
             </div>
         </template>
 
@@ -68,9 +68,23 @@ export default {
 </script>
 
 <style scoped>
-.navbarImage {
-    width: 100%;
-    max-height: 150px
+.navbar {
+    margin-top: -20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .navbarImage {
+        width: 100%;
+        height: 150px
+    }
+}
+
+.search {
+    margin-bottom: 10px;
+    border-radius: 20px;
+    text-align: center;
+    width: 50%;
 }
 
 .content1 {

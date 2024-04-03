@@ -1,18 +1,15 @@
 <template>
     <div>
-        <CameraUpload />
         <FileUpload />
     </div>
 </template>
 
 <script>
-import CameraUpload from '../components/CameraUpload.vue';
-import FileUpload from '../components/FileUpload.vue';
+import FileUpload from './FileUpload.vue';
 
 export default {
     components: {
-        CameraUpload,
-        FileUpload
+        FileUpload,
     },
 
 };

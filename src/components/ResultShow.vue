@@ -1,6 +1,11 @@
 <template>
     <div>
+        <div class="button">
+            <button><label for="fileInput">点击继续上传</label></button>
+        </div>
+        <input id="fileInput" type="file" accept="image/*" style="display: none;" @change="handleFileInputChange">
         <div class="show">
+            <!-- 展示图片 -->
             <img :src="imageUrl" v-if="imageUrl" style="width: 100%; max-height: 300px;">
             <!-- 展示上传结果 -->
             <div v-if="uploadResult" class="result">
@@ -11,39 +16,37 @@
                 <p>治疗方法：{{ uploadResult.zhiliao }}</p>
             </div>
         </div>
-        <div v-if="uploadResult" class="ai">
+        <div class="ai" v-if="uploadResult">
             <button>点击询问ai语音专家建议</button>
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
-import { ref } from 'vue'
+import { useIdentifyStore } from '../store/identify';
+import { toRefs, ref, watch } from 'vue';
+import axios from 'axios'
 
 export default {
-    props: {
-        imageUrl: {
-            type: String,   // 用于存储图片地址
-        },
-        uploadResult: {
-            type: Object,   // 用于获取返回结果
-        },
-    },
-    setup(props, context) {
-        const imageUrl = ref(props.imageUrl);
-        const uploadResult = ref(props.uploadResult);
+    setup() {
+        const store = useIdentifyStore();
+        const { imageUrl, uploadResult } = toRefs(store);
+
+        // 强制重新渲染组件
+        const forceRerender = ref(0);
+        watch([imageUrl, uploadResult], () => {
+            forceRerender.value++;
+        });
+
         const handleFileInputChange = (event) => {
             const file = event.target.files[0];
             const reader = new FileReader();
             reader.onload = () => {
-                context.emit('updateImageUrl', reader.result);
-                //props.imageUrl = reader.result;
+                imageUrl.value = reader.result;
                 console.log('图片地址:', imageUrl.value);
                 // 将 imageUrl 发送到服务器或进行其他操作
             };
             reader.readAsDataURL(file);
-            console.log('预览图片:', imageUrl.value);
 
             // 上传操作：创建 FormData 对象, 并将图片文件添加到以后端预期的字段名 “file” 中
             const formData = new FormData();
@@ -53,7 +56,7 @@ export default {
                 method: 'POST',
                 body: formData,
             })*/
-            axios.post('http://192.168.185.20:5000', formData)
+            axios.post('http://192.168.1.102:5000', formData)
                 .then((response) => {
                     if (response.status === 200) {
                         // 获取后端返回的预测结果
@@ -62,12 +65,11 @@ export default {
                         // 如果请求未成功，则打印错误信息
                         console.error('上传图片失败');
                         alert('上传图片失败');
-                        props.uploadResult = null;
+                        uploadResult.value = null;
                     }
                 })
                 .then((result) => {
-                    context.emit('updateUploadResult', result);
-                    //props.uploadResult.value = result;
+                    uploadResult.value = result;
                     console.log('后端响应:', result); // 打印后端响应
                 })
                 .catch((error) => {
@@ -79,7 +81,21 @@ export default {
             imageUrl,
             uploadResult,
             handleFileInputChange,
+            forceRerender
         };
-    },
+    }
 }
 </script>
+
+<style scoped>
+.button {
+    display: flex;
+    justify-content: center;
+    background-color: grey;
+
+    button {
+        border-radius: 10px;
+        width: 40%;
+    }
+}
+</style>

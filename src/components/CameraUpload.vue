@@ -15,7 +15,10 @@
             </div>
         </div>
         <div v-if="uploadResult" class="ai">
-            <button>点击询问ai语音专家建议</button>
+            <button @click="toggleAi">点击询问ai语音专家建议</button>
+            <div v-if="aiShow" class="aiShow">
+                <input type="text">
+            </div>
         </div>
     </div>
 </template>
@@ -28,6 +31,9 @@ export default {
     setup() {
         const imageUrl = ref('');       // 用于存储图片地址
         const uploadResult = ref(null)    // 用于获取返回结果
+        const aiShow = ref(false)
+
+
         const handleFileInputChange = (event) => {
             const file = event.target.files[0];
             const reader = new FileReader();
@@ -66,12 +72,24 @@ export default {
                     console.error('上传图片时出现错误:', error);
                 });
         };
+        const toggleAi = () => {
+            aiShow.value = !aiShow.value;
+            console.log(aiShow.value);
+        };
 
         return {
             imageUrl,
             uploadResult,
+            aiShow,
             handleFileInputChange,
+            toggleAi
         };
     },
 };
 </script>
+
+<style>
+.aiShow {
+    border: 1px solid #ccc;
+}
+</style>

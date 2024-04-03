@@ -10,7 +10,21 @@
             <div class="content1">
                 <div class="icons1">
                     <el-row :gutter="20">
-                        <Icons1 module="identify" iconName="bingchonghai" text="病虫害<br>识别" />
+                        <!-- 病虫害识别 -->
+                        <el-col :span="6">
+                            <router-link to="/resultShow">
+                                <div for="fileInput" @click="openFile">
+                                    <svg class="icon-bingchonghai" aria-hidden="true"
+                                        :style="{ width: iconSize, height: iconSize }">
+                                        <use xlink:href="#icon-bingchonghai"></use>
+                                    </svg>
+                                </div>
+                            </router-link>
+                            <div class="text">病虫害<br>识别</div>
+                        </el-col>
+                        <input id="fileInput" type="file" accept="image/*" style="display: none;"
+                            @change="handleFileInputChange">
+                        <!-- 病虫害识别 -->
                         <Icons1 iconName="cechan" text="拍照<br>树果测产" />
                         <Icons1 iconName="huaqi" text="拍照<br>判断花期" />
                         <Icons1 iconName="shaoqi" text="拍照<br>判断梢期" />
@@ -42,8 +56,10 @@ import Layout from '../components/Layout.vue'
 import Icons1 from '../components/Icons1.vue'
 import MsgLevel1 from '../components/MsgLevel1.vue'
 import MsgLevel2 from '../components/MsgLevel2.vue'
-
+import { storeToRefs } from 'pinia'
+import { useIdentifyStore } from '../store/identify';
 import { ref } from 'vue'
+import axios from 'axios'
 
 export default {
     components: {
@@ -53,17 +69,88 @@ export default {
         MsgLevel2
     },
     setup() {
-        /*const iconSize = ref("15px");
-        return { iconSize };*/
+        const store = useIdentifyStore();
+        const { imageUrl, uploadResult } = storeToRefs(store);
 
-    }
+        const openFile = () => {
+            const fileInput = document.getElementById('fileInput');
+            // 点击图标时触发文件选择器
+            fileInput.click();
+        }
+        const handleFileInputChange = (event) => {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                imageUrl.value = reader.result;
+                console.log('图片地址:', imageUrl.value);
+                // 将 imageUrl 发送到服务器或进行其他操作
+            };
+            reader.readAsDataURL(file);
+
+            // 上传操作：创建 FormData 对象, 并将图片文件添加到以后端预期的字段名 “file” 中
+            const formData = new FormData();
+            formData.append('url', file);
+            /* 发送 POST 请求，将图片文件上传到 Flask 后端
+            fetch('http://192.168.185.20:5000', {
+                method: 'POST',
+                body: formData,
+            })*/
+            axios.post('http://192.168.1.102:5000', formData)
+                .then((response) => {
+                    if (response.status === 200) {
+                        // 获取后端返回的预测结果
+                        return response.data;
+                    } else {
+                        // 如果请求未成功，则打印错误信息
+                        console.error('上传图片失败');
+                        alert('上传图片失败');
+                        uploadResult.value = null;
+                    }
+                })
+                .then((result) => {
+                    uploadResult.value = result;
+                    console.log('后端响应:', result); // 打印后端响应
+                })
+                .catch((error) => {
+                    console.error('上传图片时出现错误:', error);
+                });
+        };
+
+        return {
+            imageUrl,
+            uploadResult,
+            openFile,
+            handleFileInputChange,
+        };
+    },
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+// 单独为病虫害加css
+.el-col {
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.text {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.icon-bingchonghai {
+    width: 25px;
+    height: 25px;
+}
+
+// 该页面正常css 
+.navbar {
+    margin: 10px;
+}
+
 .navbarImage {
     width: 100%;
-    max-height: 150px
+    height: 170px;
 }
 
 .content1 {
