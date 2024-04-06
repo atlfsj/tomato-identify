@@ -1,8 +1,5 @@
 <template>
-    <div>
-        <div class="button">
-            <button><label for="fileInput">点击继续上传</label></button>
-        </div>
+    <div class="result-show">
         <input id="fileInput" type="file" accept="image/*" style="display: none;" @change="handleFileInputChange">
         <div class="show">
             <!-- 展示图片 -->
@@ -16,8 +13,11 @@
                 <p>治疗方法：{{ uploadResult.zhiliao }}</p>
             </div>
         </div>
-        <div class="ai" v-if="uploadResult">
+        <!-- <div class="ai-button" v-if="uploadResult">
             <button>点击询问ai语音专家建议</button>
+        </div> -->
+        <div class="button">
+            <button><label for="fileInput">点击继续上传</label></button>
         </div>
     </div>
 </template>
@@ -88,14 +88,32 @@ export default {
 </script>
 
 <style scoped>
+.result {
+    margin: 10px 0;
+    border: 1px solid grey;
+}
+
+.ai-button {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+
+    button {
+        border-radius: 5px;
+    }
+}
+
 .button {
     display: flex;
     justify-content: center;
-    background-color: grey;
+    background-color: rgb(155, 204, 161);
 
     button {
-        border-radius: 10px;
+        border-radius: 15px;
         width: 40%;
+        height: 30px;
+        background-color: green;
+        color: white;
     }
 }
 </style>

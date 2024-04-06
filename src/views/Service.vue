@@ -58,8 +58,9 @@ import MsgLevel1 from '../components/MsgLevel1.vue'
 import MsgLevel2 from '../components/MsgLevel2.vue'
 import { storeToRefs } from 'pinia'
 import { useIdentifyStore } from '../store/identify';
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
 
 export default {
     components: {
@@ -69,6 +70,7 @@ export default {
         MsgLevel2
     },
     setup() {
+        // 拍照上传预览的逻辑处理
         const store = useIdentifyStore();
         const { imageUrl, uploadResult } = storeToRefs(store);
 
@@ -115,6 +117,26 @@ export default {
                     console.error('上传图片时出现错误:', error);
                 });
         };
+        // 拍照上传路由守卫
+        const router = useRouter();
+        router.beforeEach((to, from, next) => {
+            if (to.name === 'ResultShow' && imageUrl.value === '') {
+                console.log('imageUrl 为空，阻止路由离开');
+                next(from); // 阻止路由离开
+            } else {
+                console.log('允许路由离开');
+                next(); // 允许路由离开
+            }
+        });
+
+        // 监听 imageUrl 的变化
+        watch(imageUrl, (newValue, oldValue) => {
+            if (newValue !== '') {
+                console.log('自动跳转到下一个路由');
+                // 执行跳转
+                router.push('/resultShow');
+            }
+        });
 
         return {
             imageUrl,
