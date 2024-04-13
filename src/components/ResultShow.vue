@@ -3,7 +3,10 @@
         <input id="fileInput" type="file" accept="image/*" style="display: none;" @change="handleFileInputChange">
         <div class="show">
             <!-- 展示图片 -->
-            <img :src="imageUrl" v-if="imageUrl" style="width: 100%; max-height: 300px;">
+            <img :src="imageUrl" v-if="imageUrl" style="width: 100%; height: screenWidth;">
+            <div class="button">
+                <button><label for="fileInput">点击重新拍摄</label></button>
+            </div>
             <!-- 展示上传结果 -->
             <div v-if="uploadResult" class="result">
                 <p>种类: {{ uploadResult.class }}</p>
@@ -16,9 +19,7 @@
         <!-- <div class="ai-button" v-if="uploadResult">
             <button>点击询问ai语音专家建议</button>
         </div> -->
-        <div class="button">
-            <button><label for="fileInput">点击继续上传</label></button>
-        </div>
+
     </div>
 </template>
 
@@ -77,17 +78,21 @@ export default {
                 });
         };
 
+        // 捕获图片宽度大小
+        const screenWidth = window.screen.width;
+
         return {
             imageUrl,
             uploadResult,
             handleFileInputChange,
-            forceRerender
+            forceRerender,
+            screenWidth
         };
     }
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .result {
     margin: 10px 0;
     border: 1px solid grey;
@@ -106,14 +111,21 @@ export default {
 .button {
     display: flex;
     justify-content: center;
-    background-color: rgb(155, 204, 161);
+    background: rgb(155, 204, 161) !important;
+    margin-top: -35px;
+    opacity: 0.6;
+    position: relative;
+    z-index: 10;
 
     button {
-        border-radius: 15px;
+        //border-radius: 15px;
+        border: none;
         width: 40%;
-        height: 30px;
-        background-color: green;
-        color: white;
+        height: 35px;
+        background: none;
+        color: rgb(20, 4, 4);
+        font-family: "PingFang SC", miui, system-ui, -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, sans-serif;
+        font-size: 20px;
     }
 }
 </style>
