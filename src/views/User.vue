@@ -93,6 +93,7 @@ export default {
 
     .login {
         margin: 5px;
+        margin-bottom: 20px;
 
         input {
             width: 150px;

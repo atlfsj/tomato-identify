@@ -72,12 +72,12 @@ export default {
 
 
     .navbar {
-        flex: 2;
+        flex: 1.5;
         background: @layout-white-bg;
     }
 
     .container {
-        flex: 7;
+        flex: 7.5;
         background: @layout-grey-bg;
     }
 

@@ -4,7 +4,7 @@
             <div class="news">
                 <div class="article">番茄价格行情：未来5年，想要靠番茄赚钱，离不开这几点</div>
                 <div class="articleImgs">
-                    <img class="news-img" src="../assets/icons/nav.svg" alt="Description of the image">
+                    <img class="news-img" src="../assets/icons/tomato.svg" alt="Description of the image">
                 </div>
             </div>
         </div>
@@ -37,8 +37,8 @@ export default {
     }
 
     .news-img {
-        width: 150px;
-        height: 100px;
+        width: 120px;
+        height: 110px;
         margin-left: 10px;
         /* 添加左侧间距 */
     }

@@ -172,7 +172,7 @@ export default {
 
 .navbarImage {
     width: 100%;
-    height: 170px;
+    height: 130px;
 }
 
 .content1 {
