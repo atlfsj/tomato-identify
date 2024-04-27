@@ -97,7 +97,7 @@ export default {
                 method: 'POST',
                 body: formData,
             })*/
-            axios.post('http://192.168.1.102:5000', formData)
+            axios.post('http://1a96d5e.r20.cpolar.top', formData)
                 .then((response) => {
                     if (response.status === 200) {
                         // 获取后端返回的预测结果
