@@ -7,7 +7,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // https://vitejs.dev/config/
 export default defineConfig({
   assetsDir: 'assets',
-  //base: '/tomato-identify/dist/',
+  ///base: '/tomato-identify/dist/',
   base: './',
   plugins: [
     vue(),
