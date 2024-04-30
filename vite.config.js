@@ -8,7 +8,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 export default defineConfig({
   assetsDir: 'assets',
   //base: '/tomato-identify/dist/',
-  base: './',
+  //base: './',
   plugins: [
     vue(),
     AutoImport({
