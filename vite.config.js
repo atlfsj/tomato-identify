@@ -9,14 +9,6 @@ export default defineConfig({
   assetsDir: 'assets',
   //base: '/tomato-identify/dist/',
   base: './',
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://7c705a8f.r2.cpolar.cn', // 产生跨域的地址
-        changeOrigin: true
-      }
-    }
-  },
   plugins: [
     vue(),
     AutoImport({

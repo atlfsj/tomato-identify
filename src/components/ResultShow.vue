@@ -57,7 +57,7 @@ export default {
                 method: 'POST',
                 body: formData,
             })*/
-            axios.post('http://7c705a8f.r2.cpolar.cn', formData)
+            axios.post('https://7c705a8f.r2.cpolar.cn', formData)
                 .then((response) => {
                     if (response.status === 200) {
                         // 获取后端返回的预测结果
