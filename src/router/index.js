@@ -7,6 +7,8 @@ import Article from '../views/Article.vue'
 import ArticleDetail from '../views/ArticleDetail.vue'
 import Identify from '../components/Identify.vue'
 import ResultShow from '../components/ResultShow.vue'
+import Tupu from '../components/Tupu.vue'
+import Expert from '../components/Expert.vue'
 import Login from '../components/Login.vue'
 
 const routes = [
@@ -38,6 +40,16 @@ const routes = [
         path: '/resultShow',
         name: 'ResultShow',
         component: ResultShow
+    },
+    {
+        path: '/tupu',
+        name: 'Tupu',
+        component: Tupu
+    },
+    {
+        path: '/expert',
+        name: 'Expert',
+        component: Expert
     },
     {
         path: '/login',

@@ -14,8 +14,7 @@
                         <el-col :span="6">
                             <router-link to="/resultShow">
                                 <div for="fileInput" @click="openFile">
-                                    <svg class="icon-bingchonghai" aria-hidden="true"
-                                        :style="{ width: iconSize, height: iconSize }">
+                                    <svg class="icon-bingchonghai" aria-hidden="true">
                                         <use xlink:href="#icon-bingchonghai"></use>
                                     </svg>
                                 </div>
@@ -25,6 +24,7 @@
                         <input id="fileInput" type="file" accept="image/*" style="display: none;"
                             @change="handleFileInputChange">
                         <!-- 病虫害识别 -->
+
                         <Icons1 iconName="cechan" text="拍照<br>树果测产" />
                         <Icons1 iconName="huaqi" text="拍照<br>判断花期" />
                         <Icons1 iconName="shaoqi" text="拍照<br>判断梢期" />
@@ -35,6 +35,40 @@
                         <Icons1 iconName="huansuan" text="用药PPM<br>换算" />
 
                         <Icons1 iconName="duishui" text="用药<br>兑水计算" />
+                        <!-- 知识图谱 -->
+                        <el-col :span="6">
+                            <el-dropdown>
+                                <svg class="icon-tupu" aria-hidden="true">
+                                    <use xlink:href="#icon-tupu"></use>
+                                </svg>
+                                <el-icon class="el-icon--right">
+                                    <arrow-down />
+                                </el-icon>
+                                <template #dropdown>
+                                    <el-dropdown-menu>
+                                        <router-link v-for="action in actions" :key="action" to="/tupu">
+                                            <el-dropdown-item>{{ action }}</el-dropdown-item>
+                                        </router-link>
+                                    </el-dropdown-menu>
+                                </template>
+                            </el-dropdown>
+
+
+                            <div class="text">病虫害<br>知识图谱</div>
+                        </el-col>
+                        <!-- 知识图谱 -->
+                        <!-- ai专家 -->
+                        <el-col :span="6">
+                            <router-link to="/expert">
+                                <div>
+                                    <svg class="icon-zhuanjia" aria-hidden="true">
+                                        <use xlink:href="#icon-zhuanjia"></use>
+                                    </svg>
+                                </div>
+                            </router-link>
+                            <div class="text">智能<br>专家系统</div>
+                        </el-col>
+                        <!-- ai专家 -->
 
                     </el-row>
                 </div>
@@ -61,6 +95,7 @@ import { useIdentifyStore } from '../store/identify';
 import { ref, watch } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { ArrowDown } from '@element-plus/icons-vue'
 
 export default {
     components: {
@@ -70,6 +105,7 @@ export default {
         MsgLevel2
     },
     setup() {
+        const actions = ref(["双斑叶螨", "番茄细菌性斑点病", "番茄早疫病", "番茄晚疫病", "番茄叶霉病", "番茄七星瓢病", "番茄靶斑病", "番茄花叶病毒", "番茄黄化卷叶病毒"]);
         // 拍照上传预览的逻辑处理
         const store = useIdentifyStore();
         const { imageUrl, uploadResult } = storeToRefs(store);
@@ -97,7 +133,7 @@ export default {
                 method: 'POST',
                 body: formData,
             })*/
-            axios.post('https://7c705a8f.r2.cpolar.cn', formData)
+            axios.post('http://5e7a83bc.r20.cpolar.top', formData)
                 .then((response) => {
                     if (response.status === 200) {
                         // 获取后端返回的预测结果
@@ -129,7 +165,6 @@ export default {
             }
         });
 
-        // 监听 imageUrl 的变化
         watch(imageUrl, (newValue, oldValue) => {
             if (newValue !== '') {
                 console.log('自动跳转到下一个路由');
@@ -143,6 +178,7 @@ export default {
             uploadResult,
             openFile,
             handleFileInputChange,
+            actions,
         };
     },
 }
@@ -155,12 +191,21 @@ export default {
     padding: 15px;
 }
 
+.example-showcase .el-dropdown-link {
+    cursor: pointer;
+    color: var(--el-color-primary);
+    display: flex;
+    align-items: center;
+}
+
 .text {
     margin-top: 10px;
     text-align: center;
 }
 
-.icon-bingchonghai {
+.icon-bingchonghai,
+.icon-tupu,
+.icon-zhuanjia {
     width: 25px;
     height: 25px;
 }
