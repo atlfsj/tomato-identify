@@ -1,7 +1,10 @@
 <template>
-
+    <img src="../assets/icons/tupu.svg" alt="">
 </template>
 
-<script>
-
-</script>
+<style>
+img {
+    display: flex;
+    justify-content: center;
+}
+</style>

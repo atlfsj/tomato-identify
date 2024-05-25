@@ -1,33 +1,42 @@
 <template>
-    <div>
-        <form action="http://192.168.1.107:5000" method="post" enctype="multipart/form-data">
-            <input type="text" name="text"> <input type="submit" value="上传">
+    <div id="app">
+        <form @submit.prevent="submitText">
+            <input type="text" v-model="userInput" placeholder="输入你的文本">
+            <button type="submit">提交</button>
         </form>
-        <div class="result">{{ result }}
-        </div>
+        <p v-if="response">{{ response }}</p>
+        <p v-if="error">{{ error }}</p>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
-import { ref } from 'vue';
-export default {
-    setup() {
-        const result = ref("");
-        document.addEventListener('click', function () {
-            fetch('http://127.0.0.1:5000')
-                .then(response => {
-                    if (response.ok) return response.blob();
 
-                    throw new Error('Network response was not ok.');
-                })
-                .catch(error => console.error('Fetch error:', error));
-            result.value = response.blob();
-            console.log("result.value");
-        });
+export default {
+    name: 'App',
+    data() {
         return {
-            result
-        }
-    }
-}
+            userInput: '',
+            response: '',
+            error: '',
+        };
+    },
+    methods: {
+        async submitText() {
+            this.error = ''; // 清除之前的错误信息
+            try {
+                const response = await axios.post('http://192.168.1.105:5004', { text: this.userInput });
+                this.response = response.data; // 假设后端直接返回文本数据
+            } catch (error) {
+                console.error('请求错误:', error);
+                this.error = '请求过程中发生错误，请重试。';
+            }
+            this.userInput = ''; // 清空输入框
+        },
+    },
+};
 </script>
+
+<style scoped>
+/* 可以在这里添加样式 */
+</style>
