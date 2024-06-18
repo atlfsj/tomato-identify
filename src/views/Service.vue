@@ -174,13 +174,14 @@ export default {
         // 请求知识图谱
         const handleActionClick = (action) => {
             console.log('handleActionClick', action);
-            axios.post('http://192.168.1.102:5000', { action })
+            /*axios.post('http://192.168.1.102:5000', { action })
                 .then((response) => {
                     console.log(response.data);
                 })
                 .catch((error) => {
                     console.error('请求知识图谱时出现错误:', error);
-                });
+                });*/
+            router.push('/tupu');
         };/*async (action) => {
             try {
                 // 查询 Neo4j 数据
