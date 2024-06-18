@@ -14,6 +14,8 @@ less@4
 element-plus@2
 vant@4
 pinia@2
+echarts@5
+express
 ```
 
 ### 防丢记录

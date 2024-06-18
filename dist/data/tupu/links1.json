@@ -1,0 +1,114 @@
+[
+    {
+        "source": 0,
+        "target": 2,
+        "category": 0,
+        "value": "导演",
+        "symbolSize": 5
+    },
+    {
+        "source": 1,
+        "target": 2,
+        "category": 0,
+        "value": "导演",
+        "symbolSize": 5
+    },
+    {
+        "source": 0,
+        "target": 3,
+        "category": 0,
+        "value": "类型",
+        "symbolSize": 5
+    },
+    {
+        "source": 1,
+        "target": 3,
+        "category": 0,
+        "value": "类型",
+        "symbolSize": 5
+    },
+    {
+        "source": 0,
+        "target": 4,
+        "category": 0,
+        "value": "类型",
+        "symbolSize": 5
+    },
+    {
+        "source": 1,
+        "target": 4,
+        "category": 0,
+        "value": "类型",
+        "symbolSize": 5
+    },
+    {
+        "source": 0,
+        "target": 5,
+        "category": 0,
+        "value": "主演",
+        "symbolSize": 5
+    },
+    {
+        "source": 1,
+        "target": 5,
+        "category": 0,
+        "value": "主演",
+        "symbolSize": 5
+    },
+    {
+        "source": 2,
+        "target": 5,
+        "category": 0,
+        "value": "朋友",
+        "symbolSize": 5
+    },
+    {
+        "source": 5,
+        "target": 2,
+        "category": 0,
+        "value": "",
+        "symbolSize": 5
+    },
+    {
+        "source": 0,
+        "target": 6,
+        "category": 0,
+        "value": "主演",
+        "symbolSize": 5
+    },
+    {
+        "source": 1,
+        "target": 6,
+        "category": 0,
+        "value": "主演",
+        "symbolSize": 5
+    },
+    {
+        "source": 2,
+        "target": 6,
+        "category": 0,
+        "value": "朋友",
+        "symbolSize": 5
+    },
+    {
+        "source": 6,
+        "target": 2,
+        "category": 0,
+        "value": "",
+        "symbolSize": 5
+    },
+    {
+        "source": 5,
+        "target": 6,
+        "category": 0,
+        "value": "朋友",
+        "symbolSize": 5
+    },
+    {
+        "source": 6,
+        "target": 5,
+        "category": 0,
+        "value": "",
+        "symbolSize": 5
+    }
+]

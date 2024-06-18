@@ -45,15 +45,12 @@
                                     <arrow-down />
                                 </el-icon>
                                 <template #dropdown>
-                                    <el-dropdown-menu>
-                                        <router-link v-for="action in actions" :key="action" to="/tupu">
-                                            <el-dropdown-item>{{ action }}</el-dropdown-item>
-                                        </router-link>
+                                    <el-dropdown-menu v-for="action in actions" :key="action"
+                                        @click="handleActionClick(action)">
+                                        <el-dropdown-item>{{ action }}</el-dropdown-item>
                                     </el-dropdown-menu>
                                 </template>
                             </el-dropdown>
-
-
                             <div class="text">病虫害<br>知识图谱</div>
                         </el-col>
                         <!-- 知识图谱 -->
@@ -96,6 +93,7 @@ import { ref, watch } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ArrowDown } from '@element-plus/icons-vue'
+//import { queryNeo4j, writeNodes, writeLinks } from '../apis/tupu'
 
 export default {
     components: {
@@ -156,7 +154,7 @@ export default {
         // 拍照上传路由守卫
         const router = useRouter();
         router.beforeEach((to, from, next) => {
-            if (to.name === 'ResultShow' && imageUrl.value === '') {
+            if (to.name === 'ResultShow' && !imageUrl.value) {
                 console.log('imageUrl 为空，阻止路由离开');
                 next(from); // 阻止路由离开
             } else {
@@ -173,12 +171,37 @@ export default {
             }
         });
 
+        // 请求知识图谱
+        const handleActionClick = (action) => {
+            console.log('handleActionClick', action);
+            axios.post('http://192.168.1.102:5000', { action })
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.error('请求知识图谱时出现错误:', error);
+                });
+        };/*async (action) => {
+            try {
+                // 查询 Neo4j 数据
+                const data = await queryNeo4j(action);
+                // 写入节点数据和链接数据到 JSON 文件
+                await writeNodes(data.nodes);
+                await writeLinks(data.links);
+                // 跳转到图谱页面
+                router.push('/tupu');
+            } catch (error) {
+                console.error('Error handling action click:', error);
+            }
+        }*/
+
         return {
             imageUrl,
             uploadResult,
             openFile,
             handleFileInputChange,
             actions,
+            handleActionClick
         };
     },
 }
