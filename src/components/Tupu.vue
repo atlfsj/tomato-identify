@@ -7,9 +7,8 @@ import * as echarts from 'echarts';
 
 export default {
     setup() {
-        const baseUrl = import.meta.env.BASE_URL || ''; // 获取基本URL
-        const nodeJsonUrl = `${baseUrl}data/tupu/node.json`; // node.json 文件的路径
-        const linksJsonUrl = `${baseUrl}data/tupu/links.json`; // links.json 文件的路径
+        const nodeJsonUrl = 'data/tupu/node.json'; // 相对路径
+        const linksJsonUrl = 'data/tupu/links.json'; // 相对路径
 
         const fetchData = async () => {
             try {

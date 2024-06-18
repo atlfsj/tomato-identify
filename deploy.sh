@@ -1,5 +1,5 @@
 rm -rf dist &&
 npm run build &&
 git add . &&
-git commit -m "绝对路径不行，使用import.meta.env.BASE_URL来获取基本 URL" &&
+git commit -m "由于vite设置了路径导致错误，试试相对路径" &&
 git push -u origin main
