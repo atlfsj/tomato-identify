@@ -7,8 +7,8 @@ import * as echarts from 'echarts';
 
 export default {
     setup() {
-        const nodeJsonUrl = '/data/tupu/node.json'; // node.json 文件的绝对路径
-        const linksJsonUrl = '/data/tupu/links.json'; // links.json 文件的绝对路径
+        const nodeJsonUrl = '../../../public/data/tupu/node.json'; // node.json 文件的绝对路径
+        const linksJsonUrl = '../../../public/data/tupu/links.json'; // links.json 文件的绝对路径
 
         const fetchData = async () => {
             try {
