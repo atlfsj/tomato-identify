@@ -2,13 +2,17 @@
     <div id="app" class="chat-container">
         <div class="chat-box">
             <div v-for="message in messages" :key="message.id" :class="['message', message.type]">
-                <div class="message-content">
+                <div class="message-content" v-if="message.type === 'bot'" v-html="message.text"></div>
+                <div class="message-content" v-else>
                     <p>{{ message.text }}</p>
                 </div>
             </div>
+            <div v-if="isLoading" class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
         </div>
-        <form @submit.prevent="submitText" class="input-form">
-            <input type="text" v-model="userInput" placeholder="输入你的问题" class="input-field">
+        <form @submit.prevent="debouncedSubmitText" class="input-form">
+            <input type="text" v-model="userInput" placeholder="输入你的问题" class="input-field" />
             <button type="submit" class="submit-button">提交</button>
         </form>
         <p v-if="error" class="error-message">{{ error }}</p>
@@ -16,52 +20,92 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import axios from 'axios';
+
+// 简单防抖
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
 
 export default {
     name: 'App',
-    data() {
-        return {
-            userInput: '',
-            messages: [],
-            error: '',
+    setup() {
+        const userInput = ref('');
+        const messages = ref([]);
+        const error = ref('');
+        const isLoading = ref(false);
+
+        const formatResponse = (response) => {
+            console.log(response);
+            const parsedResponse = JSON.parse(response);
+            let htmlContent = '';
+
+            if (parsedResponse.response) {
+                const lines = parsedResponse.response.split('\n');
+                lines.forEach((line) => {
+                    if (line.trim().length > 0) {
+                        if (line.startsWith('-')) {
+                            htmlContent += `<li>${line.substring(1).trim()}</li>`;
+                        } else {
+                            htmlContent += `<p>${line.trim()}</p>`;
+                        }
+                    }
+                });
+            }
+
+            return `<ul>${htmlContent}</ul>`;
         };
-    },
-    methods: {
-        async submitText() {
-            this.error = '';
+
+        const submitText = async () => {
+            error.value = '';
             const userMessage = {
-                id: this.messages.length + 1,
-                text: this.userInput,
+                id: messages.value.length + 1,
+                text: userInput.value,
                 type: 'user',
             };
-            this.messages.push(userMessage);
+            messages.value.push(userMessage);
 
             let botResponse = '';
+            isLoading.value = true;
 
-            if (this.userInput.trim() === '番茄的病虫害有哪些') {
+            if (userInput.value.trim() === '番茄的病虫害有哪些') {
                 botResponse = '番茄常见的病虫害包括真菌性、细菌性、病毒性病害以及多种害虫。真菌性病害如早疫病、晚疫病和灰霉病，会导致叶片、茎秆和果实上出现斑点、腐烂等症状。常见的害虫包括蚜虫、白粉虱、叶螨和番茄蛀果蛾等，它们会吸食植株汁液、传染病害或直接破坏果实，影响番茄的生长和产量。这些病虫害的防治需要综合运用农业、物理、生物和化学的方法，以确保番茄的健康生长和高产。';
-            } else if (this.userInput.trim() === '简单描述番茄的病虫害有哪些') {
-                botResponse = '番茄常见病虫害包括晚疫病、早疫病、叶霉病、灰霉病、白粉病、蚜虫、螨虫和棉铃虫等。晚疫病由霜霉菌引起，表现为叶片、茎、果实上的褐色坏死斑；早疫病由真菌引起，叶片上有同心轮纹的褐色斑点。蚜虫和螨虫会吸食植株汁液，导致叶片卷曲、变黄。棉铃虫会蛀食果实，造成严重减产。防治措施包括种植抗病品种、轮作、清除病残体和适时使用农药。'
             } else {
                 try {
-                    const response = await axios.post('http://192.168.1.105:5004', { text: this.userInput });
-                    botResponse = response.data;
-                } catch (error) {
-                    console.error('请求错误:', error);
-                    this.error = '请求过程中发生错误，请重试。';
+                    const response = await axios.get(`http://8.130.28.121:8000/cs/?text=${encodeURIComponent(userInput.value)}`);
+                    botResponse = formatResponse(JSON.stringify(response.data));
+                } catch (err) {
+                    console.error('请求错误:', err);
+                    error.value = '请求过程中发生错误，请重试。';
                 }
             }
 
             const botMessage = {
-                id: this.messages.length + 1,
+                id: messages.value.length + 1,
                 text: botResponse,
                 type: 'bot',
             };
 
-            this.messages.push(botMessage);
-            this.userInput = '';
-        },
+            messages.value.push(botMessage);
+            userInput.value = '';
+            isLoading.value = false;
+        };
+
+        const debouncedSubmitText = debounce(submitText, 300);
+
+        return {
+            userInput,
+            messages,
+            error,
+            isLoading,
+            debouncedSubmitText,
+        };
     },
 };
 </script>
@@ -148,5 +192,27 @@ export default {
 .error-message {
     color: red;
     margin-top: 10px;
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #007bff;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 </style>

@@ -18,4 +18,13 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
+  /*server: {
+    proxy: {
+      '/api': {
+        target: 'http://8.130.28.121:8000',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
+  },*/
 })

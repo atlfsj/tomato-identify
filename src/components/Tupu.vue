@@ -1,14 +1,16 @@
 <template>
-    <div id="graph" style="width: 100%; height: 700px;"></div>
+    <div id="graph" style="width: 100%; height: 800px;"></div>
 </template>
 
 <script>
 import * as echarts from 'echarts';
+import { useRoute } from 'vue-router';
 
 export default {
     setup() {
-        const nodeJsonUrl = 'data/tupu/node.json'; // 相对路径
-        const linksJsonUrl = 'data/tupu/links.json'; // 相对路径
+        const route = useRoute();
+        const nodeJsonUrl = route.query.nodeJsonUrl;
+        const linksJsonUrl = route.query.linksJsonUrl;
 
         const fetchData = async () => {
             try {
@@ -31,8 +33,6 @@ export default {
                             return `${a.data.detail}`;
                         },
                         position: function (point, params, dom, rect, size) {
-                            // point: 鼠标位置
-                            // size: 包含dom的宽高信息
                             let x = point[0];
                             let y = point[1];
                             let viewWidth = size.viewSize[0];
@@ -69,24 +69,37 @@ export default {
                             roam: true,
                             categories: [
                                 {
+                                    name: '疾病症状',
                                     itemStyle: {
                                         color: "lightgreen"
                                     }
                                 },
                                 {
+                                    name: '化学控制',
                                     itemStyle: {
                                         color: "orange",
                                     }
                                 },
                                 {
+                                    name: '物理控制',
                                     itemStyle: {
                                         color: "pink",
                                     }
                                 },
                                 {
-                                    color: "lightblue",
+                                    name: '疾病位置',
+                                    itemStyle: {
+                                        color: "lightblue",
+                                    }
+                                },
+                                {
+                                    name: '农业控制',
+                                    itemStyle: {
+                                        color: "grey",
+                                    }
                                 }
                             ],
+
                             label: {
                                 show: true,
                                 textStyle: {
@@ -121,12 +134,6 @@ export default {
                 };
 
                 myChart.setOption(option);
-                myChart.on('click', function (params) {
-                    if (params.dataType === 'node') {
-                        const content = `${params.data.detail}`;
-                        alert(content);
-                    }
-                });
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -142,6 +149,6 @@ export default {
 <style scoped>
 #graph {
     width: 100%;
-    height: 700px;
+    height: 100%;
 }
 </style>

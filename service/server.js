@@ -1,31 +1,39 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.json());
 
-// 写入节点数据到 node.json
-app.post('/write-nodes', (req, res) => {
-    fs.writeFile(path.join(__dirname, 'public/data/tupu/node.json'), JSON.stringify(req.body), 'utf8', (err) => {
+// 路由：接收处理后的数据并写入文件
+app.post('/updateFiles', (req, res) => {
+    const links = req.body.links;
+    const nodes = req.body.nodes;
+
+    const linksPath = path.join(__dirname, 'path/to/links.json');
+    const nodesPath = path.join(__dirname, 'path/to/nodes.json');
+
+    // 写入 links.json
+    fs.writeFile(linksPath, JSON.stringify(links, null, 2), 'utf8', (err) => {
         if (err) {
-            return res.status(500).send('Error writing node.json');
+            console.error('写入 links.json 时出现错误:', err);
+            return res.status(500).send('写入 links.json 时出现错误');
         }
-        res.send('Node data written successfully');
+
+        // 写入 nodes.json
+        fs.writeFile(nodesPath, JSON.stringify(nodes, null, 2), 'utf8', (err) => {
+            if (err) {
+                console.error('写入 nodes.json 时出现错误:', err);
+                return res.status(500).send('写入 nodes.json 时出现错误');
+            }
+
+            res.send('文件已成功更新');
+        });
     });
 });
 
-// 写入链接数据到 links.json
-app.post('/write-links', (req, res) => {
-    fs.writeFile(path.join(__dirname, 'public/data/tupu/links.json'), JSON.stringify(req.body), 'utf8', (err) => {
-        if (err) {
-            return res.status(500).send('Error writing links.json');
-        }
-        res.send('Links data written successfully');
-    });
-});
-
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+const port = 5001;
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
 });

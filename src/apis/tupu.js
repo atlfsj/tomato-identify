@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 发送查询请求
-/*export const queryNeo4j = async (action) => {
+export const queryNeo4j = async (action) => {
     try {
         const response = await axios.post('http://localhost:5000/api/query', { action });
         return response.data;
@@ -30,4 +30,3 @@ export const writeLinks = async (data) => {
         throw error;
     }
 };
-*/

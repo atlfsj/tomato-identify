@@ -93,7 +93,6 @@ import { ref, watch } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ArrowDown } from '@element-plus/icons-vue'
-//import { queryNeo4j, writeNodes, writeLinks } from '../apis/tupu'
 
 export default {
     components: {
@@ -103,7 +102,7 @@ export default {
         MsgLevel2
     },
     setup() {
-        const actions = ref(["双斑叶螨", "番茄细菌性斑点病", "番茄早疫病", "番茄晚疫病", "番茄叶霉病", "番茄七星瓢病", "番茄靶斑病", "番茄花叶病毒", "番茄黄化卷叶病毒"]);
+        const actions = ref(["双斑叶螨", "番茄细菌性斑点病", "番茄早疫病", "番茄晚疫病", "番茄叶霉病", "番茄七星瓢病", "番茄靶斑病", "番茄花叶病", "番茄黄化卷叶病"]);
         // 拍照上传预览的逻辑处理
         const store = useIdentifyStore();
         const { imageUrl, uploadResult } = storeToRefs(store);
@@ -127,11 +126,11 @@ export default {
             const formData = new FormData();
             formData.append('url', file);
             /* 发送 POST 请求，将图片文件上传到 Flask 后端
-            fetch('http://192.168.185.20:5000', {
+            fetch('http://10.0.8.14:5002', {
                 method: 'POST',
                 body: formData,
             })*/
-            axios.post('http://5dead403.r5.cpolar.top', formData)
+            axios.post('http://6b35dbc4.r12.vip.cpolar.cn', formData)
                 .then((response) => {
                     if (response.status === 200) {
                         // 获取后端返回的预测结果
@@ -145,7 +144,7 @@ export default {
                 })
                 .then((result) => {
                     uploadResult.value = result;
-                    console.log('后端响应:', result); // 打印后端响应
+                    console.log('后端响应:', result);
                 })
                 .catch((error) => {
                     console.error('上传图片时出现错误:', error);
@@ -172,29 +171,45 @@ export default {
         });
 
         // 请求知识图谱
-        const handleActionClick = (action) => {
-            console.log('handleActionClick', action);
-            /*axios.post('http://192.168.1.102:5000', { action })
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.error('请求知识图谱时出现错误:', error);
-                });*/
+        /*const handleActionClick = async (action) => {
+            console.log('handleActionClick：', action);
             router.push('/tupu');
-        };/*async (action) => {
-            try {
-                // 查询 Neo4j 数据
-                const data = await queryNeo4j(action);
-                // 写入节点数据和链接数据到 JSON 文件
-                await writeNodes(data.nodes);
-                await writeLinks(data.links);
+            /*try {
+                // 发送action请求到后端
+                const response = await axios.post('http://localhost:5002', { name });
+                console.log('responseData：', response.data);
+                const data = response.data;
                 // 跳转到图谱页面
                 router.push('/tupu');
-            } catch (error) {
-                console.error('Error handling action click:', error);
+            } catch {
+                console.log('请求知识图谱错误', error)
             }
-        }*/
+        };*/
+
+        // 知识图谱假数据
+        const handleActionClick = (action) => {
+            console.log('handleActionClick:', action);
+            let diseaseUrls = {
+                "双斑叶螨": { nodeJsonUrl: 'data/tupu/sbym_node.json', linksJsonUrl: 'data/tupu/sbym_links.json' },
+                "番茄细菌性斑点病": { nodeJsonUrl: 'data/tupu/xjxbd_node.json', linksJsonUrl: 'data/tupu/xjxbd_links.json' },
+                "番茄早疫病": { nodeJsonUrl: 'data/tupu/zyb_node.json', linksJsonUrl: 'data/tupu/zyb_links.json' },
+                "番茄晚疫病": { nodeJsonUrl: 'data/tupu/wyb_node.json', linksJsonUrl: 'data/tupu/wyb_links.json' },
+                "番茄叶霉病": { nodeJsonUrl: 'data/tupu/ymb_node.json', linksJsonUrl: 'data/tupu/ymb_links.json' },
+                "番茄七星瓢病": { nodeJsonUrl: 'data/tupu/qxpb_node.json', linksJsonUrl: 'data/tupu/qxpb_links.json' },
+                "番茄靶斑病": { nodeJsonUrl: 'data/tupu/bbb_node.json', linksJsonUrl: 'data/tupu/bbb_links.json' },
+                "番茄花叶病": { nodeJsonUrl: 'data/tupu/hyb_node.json', linksJsonUrl: 'data/tupu/hyb_links.json' },
+                "番茄黄化卷叶病": { nodeJsonUrl: 'data/tupu/hhjy_node.json', linksJsonUrl: 'data/tupu/hhjy_links.json' },
+            };
+
+            let nodeJsonUrl = diseaseUrls[action]?.nodeJsonUrl || '';
+            let linksJsonUrl = diseaseUrls[action]?.linksJsonUrl || '';
+
+            router.push({
+                path: '/tupu',
+                query: { nodeJsonUrl, linksJsonUrl }
+            });
+        };
+
 
         return {
             imageUrl,

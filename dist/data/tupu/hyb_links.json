@@ -1,0 +1,32 @@
+[
+    {
+        "source": 0,
+        "target": 1,
+        "value": "化学控制",
+        "symbolSize": 5
+    },
+    {
+        "source": 0,
+        "target": 2,
+        "value": "物理控制",
+        "symbolSize": 5
+    },
+    {
+        "source": 0,
+        "target": 3,
+        "value": "物理控制",
+        "symbolSize": 5
+    },
+    {
+        "source": 0,
+        "target": 4,
+        "value": "农业控制",
+        "symbolSize": 5
+    },
+    {
+        "source": 0,
+        "target": 5,
+        "value": "",
+        "symbolSize": 5
+    }
+]
