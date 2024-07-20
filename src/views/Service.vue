@@ -102,7 +102,7 @@ export default {
         MsgLevel2
     },
     setup() {
-        const actions = ref(["双斑叶螨", "番茄细菌性斑点病", "番茄早疫病", "番茄晚疫病", "番茄叶霉病", "番茄七星瓢病", "番茄靶斑病", "番茄花叶病", "番茄黄化卷叶病"]);
+        const actions = ref(["双斑叶螨", "番茄细菌性斑点病", "番茄早疫病", "番茄晚疫病", "番茄叶霉病", "番茄七星瓢病", "番茄靶斑病", "番茄花叶病", "番茄黄化曲叶病"]);
         // 拍照上传预览的逻辑处理
         const store = useIdentifyStore();
         const { imageUrl, uploadResult } = storeToRefs(store);
@@ -198,7 +198,7 @@ export default {
                 "番茄七星瓢病": { nodeJsonUrl: 'data/tupu/qxpb_node.json', linksJsonUrl: 'data/tupu/qxpb_links.json' },
                 "番茄靶斑病": { nodeJsonUrl: 'data/tupu/bbb_node.json', linksJsonUrl: 'data/tupu/bbb_links.json' },
                 "番茄花叶病": { nodeJsonUrl: 'data/tupu/hyb_node.json', linksJsonUrl: 'data/tupu/hyb_links.json' },
-                "番茄黄化卷叶病": { nodeJsonUrl: 'data/tupu/hhjy_node.json', linksJsonUrl: 'data/tupu/hhjy_links.json' },
+                "番茄黄化曲叶病": { nodeJsonUrl: 'data/tupu/hhqy_node.json', linksJsonUrl: 'data/tupu/hhqy_links.json' },
             };
 
             let nodeJsonUrl = diseaseUrls[action]?.nodeJsonUrl || '';

@@ -1,0 +1,35 @@
+[
+    {
+        "name": "黄化曲叶",
+        "id": 0,
+        "detail": "番茄黄化曲叶病毒",
+        "itemStyle": {
+            "color": "blue"
+        }
+    },
+    {"name": "或发病...","id": 1,"category": 1,"detail": ""},
+    {"name": "用烟剂熏...","id": 2,"category": 1,"detail": ""},
+    {"name": "选用抗病...","id": 3,"category": 2,"detail": ""},
+    {"name": "不规则形...","id": 4,"category": 0,"detail": ""},
+    {"name": "叶片","id": 5,"category": 3,"detail": ""},
+    {"name": "喷洒70%...","id": 6,"category": 1,"detail": ""},
+    {"name": "高温闷棚...","id": 7,"category": 2,"detail": ""},
+    {"name": "不规则形...","id": 8,"category": 0,"detail": ""},
+    {"name": "之后部分...","id": 9,"category": 0,"detail": ""},
+    {"name": "0天喷1...","id": 10,"category": 1,"detail": ""},
+    {"name": "加强裁培...","id": 11,"category": 4,"detail": ""},
+    {"name": "叶脉附...","id": 12,"category": 0,"detail": ""},
+    {"name": "病斑多为...","id": 13,"category": 0,"detail": ""},
+    {"name": "菌丝体或...","id": 14,"category": 6,"detail": ""},
+    {"name": "年萌发形...","id": 15,"category": 0,"detail": ""},
+    {"name": "可直接侵...","id": 16,"category": 0,"detail": ""},
+    {"name": "病部出现...","id": 17,"category": 0,"detail": ""},
+    {"name": "年借气流...","id": 18,"category": 6,"detail": ""},
+    {"name": "叶柄","id": 19,"category": 3,"detail": ""},
+    {"name": "及时清除...","id": 20,"category": 2,"detail": ""},
+    {"name": "叶片","id": 21,"category": 5,"detail": ""},
+    {"name": "叶片果实","id": 22,"category": 3,"detail": ""},
+    {"name": "湿度大...","id": 23,"category": 6,"detail": ""},
+    {"name": "发病初期...","id": 24,"category": 1,"detail": ""},
+    {"name": "以菌丝体...","id": 25,"category": 5,"detail": ""}
+]

@@ -97,6 +97,18 @@ export default {
                                     itemStyle: {
                                         color: "grey",
                                     }
+                                },
+                                {
+                                    name: '疾病恶化',
+                                    itemStyle: {
+                                        color: "red"
+                                    }
+                                },
+                                {
+                                    name: '疾病原因',
+                                    itemStyle: {
+                                        color: "green"
+                                    }
                                 }
                             ],
 
